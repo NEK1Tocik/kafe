@@ -1,0 +1,24 @@
+[2023-12-21T20:13:30.422+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: pizza_order_dag.check_order_task 2023-12-21T20:13:29.141Z [queued]>
+[2023-12-21T20:13:30.430+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: pizza_order_dag.check_order_task 2023-12-21T20:13:29.141Z [queued]>
+[2023-12-21T20:13:30.430+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 1
+[2023-12-21T20:13:30.442+0000] {taskinstance.py:1382} INFO - Executing <Task(_PythonDecoratedOperator): check_order_task> on 2023-12-21 20:13:29.141000+00:00
+[2023-12-21T20:13:30.447+0000] {standard_task_runner.py:57} INFO - Started process 241 to run task
+[2023-12-21T20:13:30.450+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'pizza_order_dag', 'check_order_task', '2023-12-21T20:13:29.141Z', '--job-id', '14', '--raw', '--subdir', 'DAGS_FOLDER/pizza_order_dag.py', '--cfg-path', '/tmp/tmpw9xktq55']
+[2023-12-21T20:13:30.452+0000] {standard_task_runner.py:85} INFO - Job 14: Subtask check_order_task
+[2023-12-21T20:13:30.494+0000] {task_command.py:416} INFO - Running <TaskInstance: pizza_order_dag.check_order_task 2023-12-21T20:13:29.141Z [running]> on host b19f9dc5b075
+[2023-12-21T20:13:30.561+0000] {taskinstance.py:1662} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='pizza_order_dag' AIRFLOW_CTX_TASK_ID='check_order_task' AIRFLOW_CTX_EXECUTION_DATE='2023-12-21T20:13:29.141000+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='2023-12-21T20:13:29.141Z'
+[2023-12-21T20:13:30.564+0000] {taskinstance.py:1937} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/decorators/base.py", line 221, in execute
+    return_value = super().execute(context)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 192, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 209, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/pizza_order_dag.py", line 18, in check_order
+    import django
+ModuleNotFoundError: No module named 'django'
+[2023-12-21T20:13:30.575+0000] {taskinstance.py:1400} INFO - Marking task as FAILED. dag_id=pizza_order_dag, task_id=check_order_task, execution_date=20231221T201329, start_date=20231221T201330, end_date=20231221T201330
+[2023-12-21T20:13:30.588+0000] {standard_task_runner.py:104} ERROR - Failed to execute job 14 for task check_order_task (No module named 'django'; 241)
+[2023-12-21T20:13:30.622+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 1
+[2023-12-21T20:13:30.651+0000] {taskinstance.py:2778} INFO - 0 downstream tasks scheduled from follow-on schedule check

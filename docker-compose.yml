@@ -1,0 +1,54 @@
+# docker-compose.yml
+version: '3.9'
+
+services:
+  web:
+    build: .
+    restart: always
+    container_name: 'django'
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - '80:8000'
+
+  redis:
+    image: redis
+    hostname: redis
+    restart: always
+    container_name: 'redis'
+    command: redis-server
+    ports:
+      - '6379:6379'
+
+  celery:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: 'celery'
+    working_dir: /app/shpak
+    command: celery -A shpak worker -l INFO
+    links:
+      - redis
+    volumes:
+      - ..:/app
+    depends_on:
+      - web
+      - redis
+
+  flower:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: 'flower'
+    working_dir: /app/shpak
+    command: celery -A shpak flower -l INFO
+    links:
+      - redis
+      - celery
+    volumes:
+      - ..:/app
+    depends_on:
+      - web
+      - redis
+      - celery
+    ports:
+      - '5555:5555'

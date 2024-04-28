@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div align="center">
+    <h1>КОРЗИНА</h1>
+    {% if user.is_authenticated %}
+    {% if basket_len > 0 %}
+    <table class="table" align="left" style="width:20%;">
+        <tbody>
+        {% for item in basket_items %}
+        <tr>
+            <td align="right">
+                <img src="{{item.pizza__image_url}}"><br>{{item.pizza__name}}
+            </td>
+            </td>
+            <td align="right" width="30">
+                <form action="{% url 'drop_position' %}" method="get">
+                    <input name="pizza_id" value="{{item.pizza_id}}" type="hidden">
+                    <input name="current_page" value="{{current_page}}" type="hidden">
+                    <button class="btn btn-outline-dark my-2 my-sm-0" style="margin: 0 auto;display: block;"
+                            type="submit">-
+                    </button>
+                </form>
+            </td>
+            <td align="right" width="30">
+                {{item.num_pizza}}
+            </td>
+            <td align="right" width="40">
+                <form action="{% url 'add_to_basket' %}" method="get">
+                    <input name="pizza_id" value="{{item.pizza_id}}" type="hidden">
+                    <input name="user_id" value="{{user.id}}" type="hidden">
+                    <input name="current_page" value="{{current_page}}" type="hidden">
+                    <button style="margin: 0 auto;display: block;" class="btn btn-dark my-2 my-sm-0" type="submit">+
+                    </button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        <h2>ПУСТА</h2>
+        {% endif %}
+        {% endif %}
+        </tbody>
+    </table>
+</div>
+<div>
+    {% if basket_len != 0 %}
+    <table style="float: right;">
+        <tr>
+            <th>
+                <form action="{% url 'order' %}">
+                    <input name="current_page" value="{{current_page}}" type="hidden">
+                    <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">
+                        ЗАКАЗАТЬ | {{full_price}}
+                    </button>
+                </form>
+            </th>
+            <th>&nbsp;&nbsp;&nbsp;&nbsp;</th>
+        </tr>
+    </table>
+    {% endif %}
+</div>&nbsp;&nbsp;&nbsp;&nbsp;
+{% endblock %}

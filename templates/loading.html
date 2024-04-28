@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<meta http-equiv="refresh" content="1; url={% url 'check' %}" data-method="get">
+<div align="center">
+    <img src="{% static 'img/loading.gif' %}" alt="loading", style="width:300px;height:300px;">
+</div>
+{% endblock %}

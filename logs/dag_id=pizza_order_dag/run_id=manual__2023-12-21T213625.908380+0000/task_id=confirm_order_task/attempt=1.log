@@ -1,0 +1,26 @@
+[2023-12-21T21:36:27.799+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: pizza_order_dag.confirm_order_task manual__2023-12-21T21:36:25.908380+00:00 [queued]>
+[2023-12-21T21:36:27.808+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: pizza_order_dag.confirm_order_task manual__2023-12-21T21:36:25.908380+00:00 [queued]>
+[2023-12-21T21:36:27.809+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 1
+[2023-12-21T21:36:27.821+0000] {taskinstance.py:1382} INFO - Executing <Task(_PythonDecoratedOperator): confirm_order_task> on 2023-12-21 21:36:25.908380+00:00
+[2023-12-21T21:36:27.826+0000] {standard_task_runner.py:57} INFO - Started process 884 to run task
+[2023-12-21T21:36:27.828+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'pizza_order_dag', 'confirm_order_task', 'manual__2023-12-21T21:36:25.908380+00:00', '--job-id', '51', '--raw', '--subdir', 'DAGS_FOLDER/pizza_order_dag.py', '--cfg-path', '/tmp/tmp2hr796xn']
+[2023-12-21T21:36:27.829+0000] {standard_task_runner.py:85} INFO - Job 51: Subtask confirm_order_task
+[2023-12-21T21:36:27.867+0000] {task_command.py:416} INFO - Running <TaskInstance: pizza_order_dag.confirm_order_task manual__2023-12-21T21:36:25.908380+00:00 [running]> on host 20e184a2eb37
+[2023-12-21T21:36:27.945+0000] {taskinstance.py:1662} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='pizza_order_dag' AIRFLOW_CTX_TASK_ID='confirm_order_task' AIRFLOW_CTX_EXECUTION_DATE='2023-12-21T21:36:25.908380+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2023-12-21T21:36:25.908380+00:00'
+[2023-12-21T21:36:28.885+0000] {taskinstance.py:1937} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/decorators/base.py", line 221, in execute
+    return_value = super().execute(context)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 192, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 209, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/pizza_order_dag.py", line 56, in confirm_order
+    bot.send_message(chat_id='435723655', text=f'{order_set[0].pizza.description}')
+  File "/home/airflow/.local/lib/python3.8/site-packages/django/db/models/query.py", line 450, in __getitem__
+    return qs._result_cache[0]
+IndexError: list index out of range
+[2023-12-21T21:36:28.895+0000] {taskinstance.py:1400} INFO - Marking task as FAILED. dag_id=pizza_order_dag, task_id=confirm_order_task, execution_date=20231221T213625, start_date=20231221T213627, end_date=20231221T213628
+[2023-12-21T21:36:28.907+0000] {standard_task_runner.py:104} ERROR - Failed to execute job 51 for task confirm_order_task (list index out of range; 884)
+[2023-12-21T21:36:28.926+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 1
+[2023-12-21T21:36:28.940+0000] {taskinstance.py:2778} INFO - 0 downstream tasks scheduled from follow-on schedule check
